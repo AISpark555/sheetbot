@@ -104,13 +104,13 @@ export default function ChatGPTClone() {
         <div className="flex items-center justify-between p-4">
           <button 
             onClick={startNewConversation}
-            className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-md border ${darkMode ? 'bg-gray-800 border-gray-700 hover:bg-gray-700' : 'bg-white border-gray-200 hover:bg-gray-50'}`}
+            className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-md border ${darkMode ? 'bg-gray-800 border-gray-700 hover:bg-gray-700 text-gray-200' : 'bg-white border-gray-200 hover:bg-gray-50 text-gray-700'}`}
           >
             <Plus size={16} />
             <span>New chat</span>
           </button>
           <button 
-            className="md:hidden ml-2 p-1 rounded-md"
+            className={`md:hidden ml-2 p-1 rounded-md ${darkMode ? 'text-gray-200 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setSidebarOpen(false)}
           >
             <X size={20} />
