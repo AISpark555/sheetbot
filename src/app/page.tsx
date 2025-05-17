@@ -109,12 +109,6 @@ export default function ChatGPTClone() {
             <Plus size={16} />
             <span>New chat</span>
           </button>
-          <button 
-            className={`md:hidden ml-2 p-1 rounded-md ${darkMode ? 'text-gray-200 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'}`}
-            onClick={() => setSidebarOpen(false)}
-          >
-            <X size={20} />
-          </button>
         </div>
         
         <div className="flex-1 overflow-y-auto">
