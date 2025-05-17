@@ -7,7 +7,7 @@ interface FirebaseAdmin {
   auth: ReturnType<typeof getAuth>;
 }
 
-declare global {
+declare global { // This is correctly declared, the issue might be how Next.js handles global types.
   var firebaseAdmin: FirebaseAdmin | undefined;
 }
 
@@ -18,13 +18,14 @@ const initializeFirebaseAdmin = (): FirebaseAdmin => {
   }
 
   // Your web app's Firebase configuration
+  // Using environment variables for security is recommended.
   const firebaseConfig = {
-    apiKey: "AIzaSyDrkr_pflEckccEeVTceXne4Wag3aV8xn8",
-    authDomain: "aibot-d4599.firebaseapp.com",
-    projectId: "aibot-d4599",
-    storageBucket: "aibot-d4599.firebasestorage.app",
-    messagingSenderId: "177897658381",
-    appId: "1:177897658381:web:ab6740a8ceca6631f89d44"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
   };
 
   // Initialize Firebase

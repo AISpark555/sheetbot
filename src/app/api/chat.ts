@@ -1,14 +1,10 @@
 // pages/api/chat.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Configuration, OpenAIApi } from 'openai';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { OpenAI } from 'openai';
+import { collection, addDoc, Timestamp, doc, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-const openai = new OpenAIApi(
-  new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  })
-);
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -17,12 +13,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // 1. Call OpenAI
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: 'gpt-4',
       messages: [{ role: 'user', content: message }],
     });
 
-    const reply = response.data.choices[0].message?.content || 'No response';
+    // Firestore accessibility test
+    try {
+      await setDoc(doc(db, "test_collection", "test_document"), {
+        message: "Firestore is accessible!"
+      });
+      console.log("Firestore test document written successfully!");
+    } catch (firestoreError) {
+      console.error("Error writing test document to Firestore:", firestoreError);
+    }
+
+    const reply = response.choices[0].message?.content || 'No response';
 
     // 2. Store in Firestore
     const chatRef = collection(db, 'chats');
