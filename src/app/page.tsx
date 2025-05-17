@@ -212,7 +212,7 @@ export default function ChatGPTClone() {
                       <div className="flex-1">
                         <div className="font-medium">ChatGPT</div>
                         <div className="whitespace-pre-wrap mt-1 message-content">{msg.content}</div>
-                        <div className="text-xs text-gray-500 mt-1">
+                        <div className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
                           Model: {msg.model}
                         </div>
                       </div>
@@ -245,7 +245,7 @@ export default function ChatGPTClone() {
         <div className={`p-4 border-t ${darkMode ? 'bg-gray-800 border-gray-700' : 'border-gray-200'}`}>
           <div className="max-w-3xl mx-auto">
             <div className="mb-2 flex justify-center">
-              <div className={`flex items-center gap-1 text-sm py-1 px-3 rounded-md cursor-pointer ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}>
+              <div className={`flex items-center gap-1 text-sm py-1 px-3 rounded-md cursor-pointer ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800'}`}>
                 <span>Model: {currentModel}</span>
                 <ChevronDown size={14} />
               </div>
@@ -273,7 +273,7 @@ export default function ChatGPTClone() {
                 <Send className="h-5 w-5" />
               </button>
             </div>
-            <div className="text-center mt-2 text-sm text-gray-500">
+            <div className={`text-center mt-2 text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
               ChatGPT can make mistakes. Consider checking important information.
             </div>
           </div>
