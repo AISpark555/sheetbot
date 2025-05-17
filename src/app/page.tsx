@@ -307,7 +307,7 @@ export default function ChatGPTClone() {
                       C
                     </div>
                     <div className="flex-1">
-                      <div className="font-medium">ChatGPT</div>
+                      <div className={`font-medium ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>ChatGPT</div>
                       <div className="flex items-center mt-2">
                         <Loader2 className={`h-4 w-4 animate-spin mr-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`} />
                         <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Thinking...</span>
