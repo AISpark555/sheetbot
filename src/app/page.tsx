@@ -100,7 +100,7 @@ export default function ChatGPTClone() {
       )}
       
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-64' : 'w-0 md:w-0'} ${sidebarOpen ? 'sidebar-open' : ''} transition-all duration-300 overflow-hidden flex flex-col ${darkMode ? 'bg-gray-900' : 'bg-gray-100'} border-r ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+      <div className={`${sidebarOpen ? 'w-64' : 'w-0 md:w-0'} ${sidebarOpen ? 'sidebar-open' : ''} transition-all duration-300 overflow-hidden flex flex-col ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} border-r ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
         <div className="flex items-center justify-between p-4">
           <button 
             onClick={startNewConversation}
