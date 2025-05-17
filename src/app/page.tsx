@@ -185,8 +185,8 @@ export default function ChatGPTClone() {
                       key={i} 
                       className={`p-4 rounded-lg cursor-pointer ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
                     >
-                      <div className="font-medium">{example.title}</div>
-                      <div className="text-sm text-gray-500">{example.desc}</div>
+                      <div className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>{example.title}</div>
+                      <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{example.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -206,12 +206,12 @@ export default function ChatGPTClone() {
                   ) : (
                     // Assistant message with avatar
                     <div className="flex items-start mb-1">
-                      <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center mr-2 flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center mr-2 flex-shrink-0 text-white">
                         C
                       </div>
                       <div className="flex-1">
-                        <div className="font-medium">ChatGPT</div>
-                        <div className="whitespace-pre-wrap mt-1 message-content">{msg.content}</div>
+                        <div className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>ChatGPT</div>
+                        <div className={`whitespace-pre-wrap mt-1 message-content ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>{msg.content}</div>
                         <div className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
                           Model: {msg.model}
                         </div>
