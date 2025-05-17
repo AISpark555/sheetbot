@@ -118,17 +118,17 @@ export default function ChatGPTClone() {
         </div>
         
         <div className="flex-1 overflow-y-auto">
-          <div className="px-3 py-2 text-sm font-medium text-gray-500">Today</div>
+          <div className={`px-3 py-2 text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Today</div>
           {conversations.filter(c => c.date === "Today").map(conversation => (
             <div 
               key={conversation.id} 
               className={`m-2 p-3 rounded-md cursor-pointer ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'}`}
             >
-              <div className="text-sm font-medium truncate">{conversation.title}</div>
+              <div className={`text-sm font-medium truncate ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>{conversation.title}</div>
             </div>
           ))}
           
-          <div className="px-3 py-2 text-sm font-medium text-gray-500">Yesterday</div>
+          <div className={`px-3 py-2 text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Yesterday</div>
           {conversations.filter(c => c.date === "Yesterday").map(conversation => (
             <div 
               key={conversation.id} 
@@ -156,14 +156,14 @@ export default function ChatGPTClone() {
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         {/* Header */}
         <div className={`flex items-center p-4 ${darkMode ? 'bg-gray-800' : 'bg-white'} border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="mr-2">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`mr-2 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             <Menu size={20} />
           </button>
-          <div className="flex-1 text-center font-medium">ChatGPT</div>
-          <button onClick={() => setDarkMode(!darkMode)} className="ml-2">
+          <div className={`flex-1 text-center font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>ChatGPT</div>
+          <button onClick={() => setDarkMode(!darkMode)} className={`ml-2 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <button className="ml-4">
+          <button className={`ml-4 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
             <Settings size={20} />
           </button>
         </div>
@@ -253,7 +253,11 @@ export default function ChatGPTClone() {
             <div className={`relative rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'border-gray-300'}`}>
               <textarea
                 ref={textareaRef}
-                className={`w-full auto-resize-textarea p-3 pr-12 focus:outline-none rounded-xl ${darkMode ? 'bg-gray-700 text-white' : 'bg-white'}`}
+                className={`w-full auto-resize-textarea p-3 pr-12 focus:outline-none rounded-xl ${
+                  darkMode 
+                    ? 'bg-gray-700 text-white placeholder-gray-400' 
+                    : 'bg-white text-gray-900 placeholder-gray-500'
+                }`}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
