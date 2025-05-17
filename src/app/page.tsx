@@ -134,14 +134,14 @@ export default function ChatGPTClone() {
         </div>
         
         <div className={`p-3 border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-          <div className={`p-3 rounded-md flex items-center gap-3 cursor-pointer ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'}`}>
+          <div className={`p-3 rounded-md flex items-center gap-3 cursor-pointer transition-colors ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'}`}>
             <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white">
               U
             </div>
             <div className="flex-1">
               <div className={`text-sm font-medium ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>User</div>
             </div>
-            <LogOut className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`} size={16} />
+            <LogOut className={`transition-colors ${darkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-600 hover:text-gray-900'}`} size={16} />
           </div>
         </div>
       </div>
@@ -150,14 +150,14 @@ export default function ChatGPTClone() {
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         {/* Header */}
         <div className={`flex items-center p-4 ${darkMode ? 'bg-gray-800' : 'bg-white'} border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`mr-2 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`mr-2 p-2 rounded-lg transition-colors ${darkMode ? 'text-gray-200 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'}`}>
             <Menu size={20} />
           </button>
           <div className={`flex-1 text-center font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>ChatGPT</div>
-          <button onClick={() => setDarkMode(!darkMode)} className={`ml-2 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+          <button onClick={() => setDarkMode(!darkMode)} className={`ml-2 p-2 rounded-lg transition-colors ${darkMode ? 'text-gray-200 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'}`}>
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <button className={`ml-4 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+          <button className={`ml-4 p-2 rounded-lg transition-colors ${darkMode ? 'text-gray-200 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'}`}>
             <Settings size={20} />
           </button>
         </div>
@@ -260,10 +260,10 @@ export default function ChatGPTClone() {
                 style={{ minHeight: '44px', maxHeight: '200px' }}
               />
               <button
-                className={`absolute bottom-2 right-2 p-1 rounded-lg ${
+                className={`absolute bottom-2 right-2 p-1 rounded-lg transition-colors ${
                   !input.trim() || isLoading
                     ? 'text-gray-400 cursor-not-allowed'
-                    : `${darkMode ? 'text-white hover:bg-gray-600' : 'text-black hover:bg-gray-100'}`
+                    : `${darkMode ? 'text-white hover:bg-gray-600 hover:text-gray-200' : 'text-black hover:bg-gray-100 hover:text-gray-700'}`
                 }`}
                 onClick={sendMessage}
                 disabled={!input.trim() || isLoading}
