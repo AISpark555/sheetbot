@@ -134,7 +134,7 @@ export default function ChatGPTClone() {
               key={conversation.id} 
               className={`m-2 p-3 rounded-md cursor-pointer ${darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'}`}
             >
-              <div className="text-sm font-medium truncate">{conversation.title}</div>
+              <div className={`text-sm font-medium truncate ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>{conversation.title}</div>
             </div>
           ))}
         </div>
@@ -145,9 +145,9 @@ export default function ChatGPTClone() {
               U
             </div>
             <div className="flex-1">
-              <div className="text-sm font-medium">User</div>
+              <div className={`text-sm font-medium ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>User</div>
             </div>
-            <LogOut size={16} />
+            <LogOut className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`} size={16} />
           </div>
         </div>
       </div>
