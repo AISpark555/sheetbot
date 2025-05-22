@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createConversation, addMessage, getConversationMessages } from '@/lib/services/conversation-service';
 import { OpenAI } from 'openai';
-import { StreamingTextResponse, OpenAIStream } from 'ai';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-export const runtime = 'edge';
 
 export async function POST(req: NextRequest) {
   try {
@@ -40,7 +37,7 @@ export async function POST(req: NextRequest) {
     
     // Format messages for OpenAI API
     const formattedMessages = messages.map(msg => ({
-      role: msg.role,
+      role: msg.role as 'user' | 'assistant' | 'system',
       content: msg.content,
     }));
     
@@ -51,23 +48,49 @@ export async function POST(req: NextRequest) {
       stream: true,
     });
     
-    // Process the streamed response
-    const stream = OpenAIStream(response, {
-      async onCompletion(completion) {
-        // Save assistant's response to the conversation
-        await addMessage(
-          userId,
-          currentConversationId,
-          completion,
-          'assistant',
-          model
-        );
+    // Create a readable stream to handle the OpenAI response
+    const encoder = new TextEncoder();
+    let fullResponse = '';
+    
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of response) {
+            const content = chunk.choices[0]?.delta?.content || '';
+            if (content) {
+              fullResponse += content;
+              // Send the chunk to the client
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
+            }
+          }
+          
+          // Save the complete response to the database
+          if (fullResponse) {
+            await addMessage(
+              userId,
+              currentConversationId,
+              fullResponse,
+              'assistant',
+              model
+            );
+          }
+          
+          // Send done signal
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          controller.close();
+        } catch (error) {
+          console.error('Stream error:', error);
+          controller.error(error);
+        }
       },
     });
 
-    // Return streaming response to client
-    return new StreamingTextResponse(stream, {
+    // Return streaming response
+    return new Response(stream, {
       headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
         'x-conversation-id': currentConversationId,
       },
     });

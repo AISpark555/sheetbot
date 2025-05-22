@@ -1,6 +1,6 @@
 import { db } from '../firebase';
 import { Timestamp } from 'firebase-admin/firestore';
-import { getDeviceFingerprint } from '../utils/device-fingerprint';
+import { getDeviceFingerprint } from '../utils/device-fingerPrint';
 import { hashIp } from '../utils/hash-ip';
 
 const INITIAL_CREDITS = 20;
